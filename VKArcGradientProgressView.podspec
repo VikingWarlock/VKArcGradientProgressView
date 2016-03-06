@@ -59,6 +59,8 @@ Pod::Spec.new do |s|
   # Or just: s.author    = "Viking"
   # s.authors            = { "Viking" => "Warlock" }
   # s.social_media_url   = "http://twitter.com/Viking"
+  #
+  #s.social_media_url = 'https://twitter.com/VKWK_Viking'
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -82,7 +84,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/VikingWarlock/VKArcGradientProgressView.git", :tag => "1.0" }
+  s.source       = { :git => "https://github.com/VikingWarlock/VKArcGradientProgressView.git", :tag => "1.0.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
