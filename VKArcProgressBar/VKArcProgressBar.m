@@ -76,6 +76,7 @@
     endA=40;
     time=1.f;
     enableAnimate=YES;
+    ProgresslineWidth=8;
 }
 
 -(void)setWidth:(CGFloat)width
@@ -126,7 +127,6 @@
 
 -(void)setupProgressLayer
 {
-    ProgresslineWidth=8;
     progressLayer=[CAShapeLayer layer];
     progressLayer.lineCap=kCALineCapRound;
     progressLayer.fillColor=[UIColor clearColor].CGColor;

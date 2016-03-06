@@ -33,7 +33,7 @@
 /**
  *Gradient color list
  */
-@property(nonatomic,copy)NSArray *gradientColorList;
+@property(nonatomic,copy)NSArray<UIColor*> *gradientColorList;
 
 /**
  *ProgressBar start angle
