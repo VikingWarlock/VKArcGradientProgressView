@@ -60,7 +60,7 @@ if `animatedTime <= 0`, it `won't move` smoothly!
 value in the range `[0,1]`,Default may not look good.The demo use 0.2,0.5,0.8
 
 ##Install
-I am working on Cocoapods...
+	pod "VKArcGradientProgressView"
 
 ##Contact
 Contact me by an email if you have any question or advice😊.
