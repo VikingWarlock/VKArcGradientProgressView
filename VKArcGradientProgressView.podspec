@@ -60,7 +60,7 @@ Pod::Spec.new do |s|
   # s.authors            = { "Viking" => "Warlock" }
   # s.social_media_url   = "http://twitter.com/Viking"
   #
-  #s.social_media_url = 'https://twitter.com/VKWK_Viking'
+  s.social_media_url = 'https://twitter.com/VKWK_Viking'
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
