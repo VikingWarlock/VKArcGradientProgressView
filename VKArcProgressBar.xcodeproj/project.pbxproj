@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E45E013F1C8C404500BF7C2A /* VKArcProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E45E013E1C8C404500BF7C2A /* VKArcProgressBar.m */; };
+		E45E014B1C8C4CEC00BF7C2A /* VKArcProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E45E014A1C8C4CEC00BF7C2A /* VKArcProgressBar.m */; };
 		E4FA3E951C8B31A9002BEA29 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FA3E941C8B31A9002BEA29 /* main.m */; };
 		E4FA3E981C8B31A9002BEA29 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FA3E971C8B31A9002BEA29 /* AppDelegate.m */; };
 		E4FA3E9B1C8B31A9002BEA29 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FA3E9A1C8B31A9002BEA29 /* ViewController.m */; };
@@ -17,8 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E45E013D1C8C404500BF7C2A /* VKArcProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKArcProgressBar.h; path = VKArcGradientProgressView/VKArcProgressBar.h; sourceTree = "<group>"; };
-		E45E013E1C8C404500BF7C2A /* VKArcProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKArcProgressBar.m; path = VKArcGradientProgressView/VKArcProgressBar.m; sourceTree = "<group>"; };
+		E45E01491C8C4CEC00BF7C2A /* VKArcProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKArcProgressBar.h; sourceTree = "<group>"; };
+		E45E014A1C8C4CEC00BF7C2A /* VKArcProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKArcProgressBar.m; sourceTree = "<group>"; };
 		E4FA3E901C8B31A9002BEA29 /* VKArcProgressBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKArcProgressBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4FA3E941C8B31A9002BEA29 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E4FA3E961C8B31A9002BEA29 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -42,6 +42,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E45E01481C8C4CEC00BF7C2A /* VKArcGradientProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				E45E01491C8C4CEC00BF7C2A /* VKArcProgressBar.h */,
+				E45E014A1C8C4CEC00BF7C2A /* VKArcProgressBar.m */,
+			);
+			path = VKArcGradientProgressView;
+			sourceTree = SOURCE_ROOT;
+		};
 		E4FA3E871C8B31A9002BEA29 = {
 			isa = PBXGroup;
 			children = (
@@ -61,7 +70,7 @@
 		E4FA3E921C8B31A9002BEA29 /* VKArcProgressBar */ = {
 			isa = PBXGroup;
 			children = (
-				E4FA3EAA1C8B31BC002BEA29 /* class */,
+				E45E01481C8C4CEC00BF7C2A /* VKArcGradientProgressView */,
 				E4FA3E961C8B31A9002BEA29 /* AppDelegate.h */,
 				E4FA3E971C8B31A9002BEA29 /* AppDelegate.m */,
 				E4FA3E991C8B31A9002BEA29 /* ViewController.h */,
@@ -81,15 +90,6 @@
 				E4FA3E941C8B31A9002BEA29 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		E4FA3EAA1C8B31BC002BEA29 /* class */ = {
-			isa = PBXGroup;
-			children = (
-				E45E013D1C8C404500BF7C2A /* VKArcProgressBar.h */,
-				E45E013E1C8C404500BF7C2A /* VKArcProgressBar.m */,
-			);
-			name = class;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,7 +164,7 @@
 			files = (
 				E4FA3E9B1C8B31A9002BEA29 /* ViewController.m in Sources */,
 				E4FA3E981C8B31A9002BEA29 /* AppDelegate.m in Sources */,
-				E45E013F1C8C404500BF7C2A /* VKArcProgressBar.m in Sources */,
+				E45E014B1C8C4CEC00BF7C2A /* VKArcProgressBar.m in Sources */,
 				E4FA3E951C8B31A9002BEA29 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
