@@ -65,7 +65,7 @@ I am working on Cocoapods...
 ##Contact
 Contact me by an email if you have any question or advice😊.
 
-[Email](vikingwarlock@163.com)
+[Email](mailto://vikingwarlock@163.com)
 
 ##License
 
