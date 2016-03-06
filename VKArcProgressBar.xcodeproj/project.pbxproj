@@ -13,6 +13,7 @@
 		E4FA3E9E1C8B31A9002BEA29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FA3E9C1C8B31A9002BEA29 /* Main.storyboard */; };
 		E4FA3EA01C8B31A9002BEA29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4FA3E9F1C8B31A9002BEA29 /* Assets.xcassets */; };
 		E4FA3EA31C8B31A9002BEA29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4FA3EA11C8B31A9002BEA29 /* LaunchScreen.storyboard */; };
+		E4FA3EAD1C8B31D7002BEA29 /* VKArcProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E4FA3EAC1C8B31D7002BEA29 /* VKArcProgressBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		E4FA3E9F1C8B31A9002BEA29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4FA3EA21C8B31A9002BEA29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4FA3EA41C8B31A9002BEA29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4FA3EAB1C8B31D7002BEA29 /* VKArcProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKArcProgressBar.h; sourceTree = "<group>"; };
+		E4FA3EAC1C8B31D7002BEA29 /* VKArcProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKArcProgressBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 		E4FA3E921C8B31A9002BEA29 /* VKArcProgressBar */ = {
 			isa = PBXGroup;
 			children = (
+				E4FA3EAA1C8B31BC002BEA29 /* class */,
 				E4FA3E961C8B31A9002BEA29 /* AppDelegate.h */,
 				E4FA3E971C8B31A9002BEA29 /* AppDelegate.m */,
 				E4FA3E991C8B31A9002BEA29 /* ViewController.h */,
@@ -77,6 +81,15 @@
 				E4FA3E941C8B31A9002BEA29 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E4FA3EAA1C8B31BC002BEA29 /* class */ = {
+			isa = PBXGroup;
+			children = (
+				E4FA3EAB1C8B31D7002BEA29 /* VKArcProgressBar.h */,
+				E4FA3EAC1C8B31D7002BEA29 /* VKArcProgressBar.m */,
+			);
+			name = class;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,6 +164,7 @@
 			files = (
 				E4FA3E9B1C8B31A9002BEA29 /* ViewController.m in Sources */,
 				E4FA3E981C8B31A9002BEA29 /* AppDelegate.m in Sources */,
+				E4FA3EAD1C8B31D7002BEA29 /* VKArcProgressBar.m in Sources */,
 				E4FA3E951C8B31A9002BEA29 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
