@@ -27,6 +27,13 @@
     CGFloat ProgresslineWidth;
     
     BOOL enableAnimate;
+    
+    CGFloat min;
+    CGFloat max;
+    CGFloat startA;
+    CGFloat endA;
+    CGFloat time;
+    
 }
 @end
 
@@ -51,15 +58,23 @@
     return self;
 }
 
+-(instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self=[super initWithCoder: aDecoder];
+    if (self) {
+        [self initialized];
+    }
+    return self;
+}
 
 -(void)initialized
 {
     [self setupProgressLayer];
-    self.minData=0;
-    self.maxData=80;
-    self.startAngle=-230;
-    self.endAngle=70;
-    self.animatedTime=1.f;
+    min=0;
+    max=80;
+    startA=-220;
+    endA=40;
+    time=1.f;
     enableAnimate=YES;
 }
 
@@ -71,26 +86,31 @@
 
 -(void)setMaxData:(CGFloat)maxData
 {
+    max=maxData;
     [self resetPath];
 }
 
 -(void)setMinData:(CGFloat)minData
 {
+    min=minData;
     [self resetPath];
 }
 
 -(void)setStartAngle:(CGFloat)startAngle
 {
+    startA=startAngle;
     [self resetPath];
 }
 
 -(void)setEndAngle:(CGFloat)endAngle
 {
+    endA=endAngle;
     [self resetPath];
 }
 
 -(void)setAnimatedTime:(CGFloat)animatedTime
 {
+    time=animatedTime;
     if (animatedTime<=0) {
         enableAnimate=NO;
     }else
@@ -101,7 +121,7 @@
 
 -(void)setGradientColorList:(NSArray *)gradientColorList
 {
-    
+    [self resetColor];
 }
 
 -(void)setupProgressLayer
@@ -125,14 +145,14 @@
 
 -(void)setdata:(CGFloat)data andAnimated:(BOOL)animate
 {
-    if (data>_maxData || data <_minData) {
+    if (data>max || data <min) {
         return;
     }
     [CATransaction begin];
     [CATransaction setDisableActions:!(animate&&enableAnimate)];
     [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
-    [CATransaction setAnimationDuration:_animatedTime];
-    progressLayer.strokeEnd=data/(_maxData-_minData);
+    [CATransaction setAnimationDuration:time];
+    progressLayer.strokeEnd=data/(max-min);
     [CATransaction commit];
 }
 
@@ -142,13 +162,14 @@
     gradientLayer=[CALayer layer];
     [self.layer addSublayer:gradientLayer];
     [self resetPath];
+    [self resetColor];
 }
 
 -(void)resetPath
 {
     CGPoint point=CGPointMake(self.frame.size.width/2.f-ProgresslineWidth/2.f, self.frame.size.height/2.f-ProgresslineWidth/2.f);
 
-    path=[UIBezierPath bezierPathWithArcCenter:point radius:self.frame.size.width/2.f-ProgresslineWidth startAngle:-M_PI*(_startAngle/180.f) endAngle:M_PI*(_endAngle/180.f) clockwise:YES];
+    path=[UIBezierPath bezierPathWithArcCenter:point radius:self.frame.size.width/2.f-ProgresslineWidth startAngle:M_PI*(startA/180.f) endAngle:M_PI*(endA/180.f) clockwise:YES];
     
     progressLayer.path=path.CGPath;
 
@@ -211,7 +232,7 @@
     NSArray *locations=[_customLocations copy];
     if (!locations) {
         NSMutableArray *temp=[NSMutableArray array];
-        for (NSInteger count=1; count<=leftColorList.count; count++) {
+        for (NSInteger count=leftColorList.count+1; count>1; count--) {
             [temp addObject:@(1.f/count)];
         }
         locations=[NSArray arrayWithArray:temp];

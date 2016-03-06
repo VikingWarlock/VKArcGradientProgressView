@@ -13,6 +13,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E4FA3E8F1C8B31A9002BEA29"
+            BuildableName = "VKArcProgressBar.app"
+            BlueprintName = "VKArcProgressBar"
+            ReferencedContainer = "container:VKArcProgressBar.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -26,6 +35,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E4FA3E8F1C8B31A9002BEA29"
+            BuildableName = "VKArcProgressBar.app"
+            BlueprintName = "VKArcProgressBar"
+            ReferencedContainer = "container:VKArcProgressBar.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -35,6 +54,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E4FA3E8F1C8B31A9002BEA29"
+            BuildableName = "VKArcProgressBar.app"
+            BlueprintName = "VKArcProgressBar"
+            ReferencedContainer = "container:VKArcProgressBar.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

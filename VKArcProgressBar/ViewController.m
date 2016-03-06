@@ -23,7 +23,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     progress=[[VKArcProgressBar alloc]init];
-    currentData=5;
+    progress.backgroundColor=[UIColor blackColor];
+    progress.customLocations=@[@0.2,@0.5,@0.8];
+    self.view.backgroundColor=[UIColor blackColor];
+    currentData=15;
     [self.view addSubview:progress];
     timer = [NSTimer scheduledTimerWithTimeInterval:1.f target:self selector:@selector(handleTimer) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSRunLoopCommonModes];
@@ -39,7 +42,7 @@
 
 -(void)handleTimer
 {
-    int offset= arc4random() % 20 -10;
+    int offset= arc4random() % 30 -10;
     currentData+=offset;
     if (currentData>80) {
         currentData=80;
