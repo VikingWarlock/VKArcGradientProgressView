@@ -9,18 +9,24 @@
 #import "VKArcProgressBar.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define StartRadius 9/40.f
-#define StartlineWidth 8
-#define rwidth (rect.size.width-StartlineWidth)
-#define rheight (rect.size.height-StartlineWidth)
+//#define StartRadius 9/40.f
+//#define StartlineWidth 8
+//#define rwidth (rect.size.width-StartlineWidth)
+//#define rheight (rect.size.height-StartlineWidth)
 
 
 @interface VKArcProgressBar()
 {
+    
     UIBezierPath *path;
+    
     CALayer *gradientLayer;
+    
     CAShapeLayer *progressLayer;
+   
     CGFloat ProgresslineWidth;
+    
+    BOOL enableAnimate;
 }
 @end
 
@@ -31,16 +37,76 @@
 {
     self = [super init];
     if (self) {
-        [self setupProgressLayer];
-        self.minData=0;
-        self.maxData=80;
+        [self initialized];
     }
     return self;
 }
 
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    self=[super initWithFrame:frame];
+    if (self) {
+        [self initialized];
+    }
+    return self;
+}
+
+
+-(void)initialized
+{
+    [self setupProgressLayer];
+    self.minData=0;
+    self.maxData=80;
+    self.startAngle=-230;
+    self.endAngle=70;
+    self.animatedTime=1.f;
+    enableAnimate=YES;
+}
+
+-(void)setWidth:(CGFloat)width
+{
+    ProgresslineWidth=width;
+    progressLayer.lineWidth=width;
+}
+
+-(void)setMaxData:(CGFloat)maxData
+{
+    [self resetPath];
+}
+
+-(void)setMinData:(CGFloat)minData
+{
+    [self resetPath];
+}
+
+-(void)setStartAngle:(CGFloat)startAngle
+{
+    [self resetPath];
+}
+
+-(void)setEndAngle:(CGFloat)endAngle
+{
+    [self resetPath];
+}
+
+-(void)setAnimatedTime:(CGFloat)animatedTime
+{
+    if (animatedTime<=0) {
+        enableAnimate=NO;
+    }else
+    {
+        enableAnimate=YES;
+    }
+}
+
+-(void)setGradientColorList:(NSArray *)gradientColorList
+{
+    
+}
+
 -(void)setupProgressLayer
 {
-    ProgresslineWidth=12;
+    ProgresslineWidth=8;
     progressLayer=[CAShapeLayer layer];
     progressLayer.lineCap=kCALineCapRound;
     progressLayer.fillColor=[UIColor clearColor].CGColor;
@@ -59,8 +125,11 @@
 
 -(void)setdata:(CGFloat)data andAnimated:(BOOL)animate
 {
+    if (data>_maxData || data <_minData) {
+        return;
+    }
     [CATransaction begin];
-    [CATransaction setDisableActions:!animate];
+    [CATransaction setDisableActions:!(animate&&enableAnimate)];
     [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
     [CATransaction setAnimationDuration:_animatedTime];
     progressLayer.strokeEnd=data/(_maxData-_minData);
@@ -69,76 +138,99 @@
 
 -(void)setupGradientLayer
 {
+    [gradientLayer removeFromSuperlayer];
     gradientLayer=[CALayer layer];
+    [self.layer addSublayer:gradientLayer];
+    [self resetPath];
+}
+
+-(void)resetPath
+{
+    CGPoint point=CGPointMake(self.frame.size.width/2.f-ProgresslineWidth/2.f, self.frame.size.height/2.f-ProgresslineWidth/2.f);
+
+    path=[UIBezierPath bezierPathWithArcCenter:point radius:self.frame.size.width/2.f-ProgresslineWidth startAngle:-M_PI*(_startAngle/180.f) endAngle:M_PI*(_endAngle/180.f) clockwise:YES];
+    
+    progressLayer.path=path.CGPath;
+
+}
+
+-(void)resetColor{
+    
+    for(CALayer *layer in gradientLayer.sublayers)
+    {
+        [layer removeFromSuperlayer];
+    }
     
     CAGradientLayer *leftLayer=[CAGradientLayer layer];
     leftLayer.frame=CGRectMake(0, 0, self.frame.size.width/2.f, self.frame.size.height);
-    [leftLayer setColors:@[(__bridge id)[UIColor blueColor].CGColor,(__bridge id)[UIColor greenColor].CGColor,(__bridge id)[UIColor yellowColor].CGColor]];
+    
+    NSArray *rightColorList;
+    NSArray *leftColorList;
+    
+    if (_gradientColorList) {
+        NSInteger countOfColor=_gradientColorList.count;
+        if (countOfColor>0) {
+                NSMutableArray *rightTempArray=[NSMutableArray array];
+                NSMutableArray *leftTempArray=[NSMutableArray array];
+            
+            for(NSInteger number=0;number<countOfColor/2;number++)
+            {
+                UIColor *color=_gradientColorList[number];
+                [leftTempArray addObject:(__bridge id)color.CGColor];
+            }
+
+            if (countOfColor % 2 !=0) {
+                UIColor *color=_gradientColorList[countOfColor/2];
+                [leftTempArray addObject:(__bridge id)color.CGColor];
+            }
+            
+            for(NSInteger number=countOfColor;number>countOfColor/2;number--)
+            {
+                UIColor *color=_gradientColorList[number-1];
+                [rightTempArray addObject:(__bridge id)color.CGColor];
+            }
+            rightColorList=[NSArray arrayWithArray:rightTempArray];
+            leftColorList=[NSArray arrayWithArray:leftTempArray];
+        }
+    }
+    
+
+    if (!leftColorList) {
+        leftColorList=@[(__bridge id)[UIColor blueColor].CGColor,(__bridge id)[UIColor greenColor].CGColor,(__bridge id)[UIColor yellowColor].CGColor];
+    }
+    
+    if (!rightColorList) {
+        rightColorList=@[(__bridge id)[UIColor redColor].CGColor,(__bridge id)[UIColor orangeColor].CGColor,(__bridge id)[UIColor yellowColor].CGColor];
+    }
+    
+    
+    [leftLayer setColors:leftColorList];
     [leftLayer setStartPoint:CGPointMake(0, 1)];
     [leftLayer setEndPoint:CGPointMake(1, 0)];
-    [leftLayer setLocations:@[@0.2,@0.5,@0.8]];
     
+    NSArray *locations=[_customLocations copy];
+    if (!locations) {
+        NSMutableArray *temp=[NSMutableArray array];
+        for (NSInteger count=1; count<=leftColorList.count; count++) {
+            [temp addObject:@(1.f/count)];
+        }
+        locations=[NSArray arrayWithArray:temp];
+    }
+    
+    [leftLayer setLocations:locations];
     CAGradientLayer *rightLayer=[CAGradientLayer layer];
     rightLayer.frame=CGRectMake(self.frame.size.width/2.f, 0, self.frame.size.width/2.f, self.frame.size.height);
-    [rightLayer setColors:@[(__bridge id)[UIColor redColor].CGColor,(__bridge id)[UIColor orangeColor].CGColor,(__bridge id)[UIColor yellowColor].CGColor]];
+    [rightLayer setColors:rightColorList];
     [rightLayer setStartPoint:CGPointMake(1, 1)];
     [rightLayer setEndPoint:CGPointMake(0, 0)];
-    [rightLayer setLocations:@[@0.2,@0.5,@0.8]];
     
+    [rightLayer setLocations:locations];
+
     [gradientLayer addSublayer:leftLayer];
     [gradientLayer addSublayer:rightLayer];
     [gradientLayer setMask:progressLayer];
-    
-    [self.layer addSublayer:gradientLayer];
-    
-    CGPoint point=CGPointMake(self.frame.size.width/2.f-ProgresslineWidth/2.f, self.frame.size.height/2.f-ProgresslineWidth/2.f);
-    path=[UIBezierPath bezierPathWithArcCenter:point radius:self.frame.size.width/2.f-50 startAngle:-M_PI*(StartRadius+1) endAngle:M_PI*(-StartRadius-1+(1+2*StartRadius)) clockwise:YES];
-    progressLayer.path=path.CGPath;
-    
+
 }
-
-
--(void)drawRect:(CGRect)rect
-{
-    //    [super drawRect:rect];
-    CGContextRef ctx=UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(ctx, 8);
-    //    CGContextSetFillColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
-    
-    
-    CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
-    
-    
-    CGContextSetRGBStrokeColor(ctx, 1, 1, 1, 1);
-    
-    float fullRadius=(1+2*StartRadius);
-    
-    for(int i=0;i<151;i++)
-    {
-        if (i % 10 == 0 ) {
-            CGContextDrawPath(ctx, kCGPathStroke);
-            CGContextSetLineWidth(ctx, 2);
-            
-            CGContextMoveToPoint(ctx, rwidth/2.f*(1+1*cosf(M_PI*(-1-StartRadius+fullRadius*i/150.f))), rheight/2.f*(1+1*sinf(M_PI*(-1-StartRadius+fullRadius*i/150.f))));
-            
-            CGContextAddLineToPoint(ctx, rwidth/2.f*(1+0.85*cosf(M_PI*(-1-StartRadius+fullRadius*i/150.f))), rheight/2.f*(1+0.85*sinf(M_PI*(-1-StartRadius+fullRadius*i/150.f))));
-            CGContextDrawPath(ctx, kCGPathStroke);
-        }else
-        {
-            CGContextSetLineWidth(ctx, 1);
-            
-            CGContextMoveToPoint(ctx, rwidth/2.f*(1+0.95*cosf(M_PI*(-1-StartRadius+fullRadius*i/150.f))), rheight/2.f*(1+0.95*sinf(M_PI*(-1-StartRadius+fullRadius*i/150.f))));
-            
-            CGContextAddLineToPoint(ctx, rwidth/2.f*(1+0.9*cosf(M_PI*(-1-StartRadius+fullRadius*i/150.f))), rheight/2.f*(1+0.9*sinf(M_PI*(-1-StartRadius+fullRadius*i/150.f))));
-            
-        }
-    }
-    CGContextDrawPath(ctx, kCGPathStroke);
-    
-}
-
-
-
 
 /*
 // Only override drawRect: if you perform custom drawing.
