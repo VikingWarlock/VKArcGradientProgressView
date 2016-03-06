@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "VKArcGradientProgressView"
-  s.version          = "1.0"
+  s.version          = '1.0'
   s.summary          = "Easy to create a gradient circle progress view."
 
 s.description      = <<-DESC
@@ -18,5 +18,6 @@ DESC
   s.platform     = :ios, '7.0'
   s.requires_arc = true
 
-  s.source_files = 'VKArcGradientProgressView/*'
+  s.source_files = 'VKArcProgressBar/VKArcGradientProgressView/*'
+
 end
