@@ -23,7 +23,7 @@
     CALayer *gradientLayer;
     
     CAShapeLayer *progressLayer;
-   
+    
     CGFloat ProgresslineWidth;
     
     BOOL enableAnimate;
@@ -122,6 +122,7 @@
 
 -(void)setGradientColorList:(NSArray *)gradientColorList
 {
+    _gradientColorList = gradientColorList;
     [self resetColor];
 }
 
@@ -167,20 +168,22 @@
 
 -(void)resetPath
 {
-    CGPoint point=CGPointMake(self.frame.size.width/2.f-ProgresslineWidth/2.f, self.frame.size.height/2.f-ProgresslineWidth/2.f);
-
-    path=[UIBezierPath bezierPathWithArcCenter:point radius:self.frame.size.width/2.f-ProgresslineWidth startAngle:M_PI*(startA/180.f) endAngle:M_PI*(endA/180.f) clockwise:YES];
+    CGPoint point=CGPointMake(self.frame.size.width/2.f, self.frame.size.height/2.f);
+    
+    path=[UIBezierPath bezierPathWithArcCenter:point radius:self.frame.size.width/2.f-ProgresslineWidth/2.f startAngle:M_PI*(startA/180.f) endAngle:M_PI*(endA/180.f) clockwise:YES];
     
     progressLayer.path=path.CGPath;
-
+    
 }
 
 -(void)resetColor{
     
-    for(CALayer *layer in gradientLayer.sublayers)
-    {
-        [layer removeFromSuperlayer];
-    }
+    [gradientLayer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer
+                                                                  )];/*
+                                                                      for(CALayer *layer in gradientLayer.sublayers)
+                                                                      {
+                                                                      [layer removeFromSuperlayer];
+                                                                      }*/
     
     CAGradientLayer *leftLayer=[CAGradientLayer layer];
     leftLayer.frame=CGRectMake(0, 0, self.frame.size.width/2.f, self.frame.size.height);
@@ -191,15 +194,15 @@
     if (_gradientColorList) {
         NSInteger countOfColor=_gradientColorList.count;
         if (countOfColor>0) {
-                NSMutableArray *rightTempArray=[NSMutableArray array];
-                NSMutableArray *leftTempArray=[NSMutableArray array];
+            NSMutableArray *rightTempArray=[NSMutableArray array];
+            NSMutableArray *leftTempArray=[NSMutableArray array];
             
             for(NSInteger number=0;number<countOfColor/2;number++)
             {
                 UIColor *color=_gradientColorList[number];
                 [leftTempArray addObject:(__bridge id)color.CGColor];
             }
-
+            
             if (countOfColor % 2 !=0) {
                 UIColor *color=_gradientColorList[countOfColor/2];
                 [leftTempArray addObject:(__bridge id)color.CGColor];
@@ -215,7 +218,7 @@
         }
     }
     
-
+    
     if (!leftColorList) {
         leftColorList=@[(__bridge id)[UIColor blueColor].CGColor,(__bridge id)[UIColor greenColor].CGColor,(__bridge id)[UIColor yellowColor].CGColor];
     }
@@ -246,19 +249,19 @@
     [rightLayer setEndPoint:CGPointMake(0, 0)];
     
     [rightLayer setLocations:locations];
-
+    
     [gradientLayer addSublayer:leftLayer];
     [gradientLayer addSublayer:rightLayer];
     [gradientLayer setMask:progressLayer];
-
+    
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end
