@@ -1,21 +1,28 @@
-##VKArcGradientProgressView
-#####Easy to create a gradient circle progress view
+## VKArcGradientProgressView
+##### Easy to create a gradient circle progress view
+
 ---
-##ScreenShot
+
+## ScreenShot
+
 ![screenshot](https://raw.githubusercontent.com/VikingWarlock/VKArcGradientProgressView/master/demoGIF.gif)
 
-##Usage
-####1.import the VKArcProgressBar.h
+## Usage
+
+#### 1.import the VKArcProgressBar.h
+
 	#import "VKArcProgressBar.h"
 
-####2.create a object
+#### 2.create a object
+	
 	VKArcProgressBar *progress=[VKArcProgressBar alloc]init];
 
-####3.customize
+#### 3.customize
 
 ---
 
-#####Set the colors
+##### Set the colors
+	
 	@property(nonatomic,copy)NSArray<UIColor*> *gradientColorList;
 
 If your don't set this ,you will get the default colors pattern
@@ -23,51 +30,64 @@ If your don't set this ,you will get the default colors pattern
 	progress.gradientColorList=@[[UIColor redColor],[UIColor yellowColor],[[UIColor greenColor]];
 
 ---
-#####Set the width
+
+##### Set the width
+	
 	@property(nonatomic,assign)CGFloat width;
+
 Default is 8
 
 ---
 
-#####Set the maximum and minimum value of this progress
+##### Set the maximum and minimum value of this progress
+	
 	@property(nonatomic,assign)CGFloat minData;
 	@property(nonatomic,assign)CGFloat maxData;
+
 Default is 0 and 80
 
 ---
 
-#####Set the data
+##### Set the data
+	
 	-(void)setdata:(CGFloat)data andAnimated:(BOOL)animate;
 
 The parameter data should `less` than the maximum value and `greater` than the minimum value,otherwise you may not get what you want.
 
 ---
 
-#####Set the animate time
+##### Set the animate time
+	
 	@property(nonatomic,assign)CGFloat animatedTime;
+
 if `animatedTime <= 0`, it `won't move` smoothly!
 
 ---
 
-#####Set the angle
+##### Set the angle
+	
 	@property(nonatomic,assign)CGFloat startAngle;
 	@property(nonatomic,assign)CGFloat endAngle;
 
 ---
 
-#####Set the location of each gradient stop
+##### Set the location of each gradient stop
+	
 	@property(nonatomic,copy)NSArray<NSNumber *> *customLocations;
+
 value in the range `[0,1]`,Default may not look good.The demo use 0.2,0.5,0.8
 
-##Install
+## Install
+
 	pod "VKArcGradientProgressView"
 
-##Contact
+## Contact
+
 Contact me by an email if you have any question or advice😊.
 
 [Email](mailto://vikingwarlock@163.com)
 
-##License
+## License
 
 Copyright (C) 2016 Viking Warlock
 
